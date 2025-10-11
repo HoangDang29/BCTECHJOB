@@ -159,57 +159,16 @@ window.onscroll = function() {
   });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    const toggle = document.querySelector(".menu-toggle");
-    const links = document.querySelector(".menu-links");
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.querySelector(".menu-toggle");
+  const links = document.querySelector(".menu-links");
 
-    toggle.addEventListener("click", function() {
+  if (toggle && links) {
+    toggle.addEventListener("click", () => {
       links.classList.toggle("show");
+      toggle.classList.toggle("active");
     });
-  });
-	
-	function removeVietnameseTones(str) {
-      return str.normalize("NFD")
-        .replace(/\p{Diacritic}/gu, "")
-        .replace(/đ/g, "d")
-        .replace(/Đ/g, "D")
-        .toLowerCase();
-    }
-
-    const searchInput = document.getElementById("search");
-    const locationSelect = document.getElementById("location");
-    const jobList = document.getElementById("job-list");
-    const allJobCards = Array.from(document.querySelectorAll(".job-card"));
-
-    function renderJobs() {
-      const searchTerm = removeVietnameseTones(searchInput.value);
-      const location = locationSelect.value;
-
-      allJobCards.forEach(card => {
-        const title = removeVietnameseTones(card.dataset.title);
-        const company = removeVietnameseTones(card.dataset.company);
-        const loc = card.dataset.location;
-
-        const matchTitleOrCompany = `${title} ${company}`.includes(searchTerm);
-        const matchLocation = location ? loc === location : true;
-
-        card.style.display = (matchTitleOrCompany && matchLocation) ? "" : "none";
-      });
-
-      const visibleCount = allJobCards.filter(card => card.style.display !== "none").length;
-      if (visibleCount === 0 && !document.getElementById("no-jobs")) {
-        const message = document.createElement("p");
-        message.id = "no-jobs";
-        message.style.textAlign = "center";
-        message.textContent = "Không tìm thấy công việc phù hợp.";
-        jobList.appendChild(message);
-      } else {
-        const noJobs = document.getElementById("no-jobs");
-        if (noJobs) noJobs.remove();
-      }
-    }
-
-    searchInput.addEventListener("input", renderJobs);
-    locationSelect.addEventListener("change", renderJobs);
+  }
+});
 </script>
 </html>
