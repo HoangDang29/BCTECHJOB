@@ -206,9 +206,7 @@
 </a>
 </div>
   	</div>
-	
-	<p style="text-align:center;">👀 Tổng lượt truy cập: <span id="visitCount">0</span></p>
-	
+		
 	<footer class="footer">
 		<div class="footer-container">
 			<div class="footer-col logo-col">
@@ -356,44 +354,5 @@ window.addEventListener("click", (e) => {
   if (e.target === modal) modal.style.display = "none";
 });
 
-</script>
-<script type="module">
-  // Import Firebase SDK
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-  import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
-
-  // Cấu hình Firebase của bạn
-  const firebaseConfig = {
-    apiKey: "AIzaSyDK6BYAkBVYDIm6btiGMH3fujEm5OA8hjY",
-    authDomain: "bctechjob-analytics.firebaseapp.com",
-    projectId: "bctechjob-analytics",
-    storageBucket: "bctechjob-analytics.firebasestorage.app",
-    messagingSenderId: "1095523983575",
-    appId: "1:1095523983575:web:a2013233fc47192aa8d092",
-    measurementId: "G-W2XRCCNCSK",
-    databaseURL: "https://bctechjob-analytics-default-rtdb.firebaseio.com/"
-  };
-
-  // Khởi tạo Firebase
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  // Lưu lượt truy cập vào database
-  const visitsRef = ref(db, "visits");
-  const visitData = {
-    time: new Date().toLocaleString(),
-    page: window.location.pathname,
-    userAgent: navigator.userAgent,
-  };
-  push(visitsRef, visitData);
-
-  // Đếm tổng số lượt truy cập
-  const countRef = ref(db, "visits");
-  onValue(countRef, (snapshot) => {
-    const data = snapshot.val();
-    const total = data ? Object.keys(data).length : 0;
-    const counter = document.getElementById("visitCount");
-    if (counter) counter.textContent = total;
-  });
 </script>
 </html>
